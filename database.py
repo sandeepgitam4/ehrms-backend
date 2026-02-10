@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # Render will provide DATABASE_URL environment variable
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:postgres@localhost:5432/ehrms"
+    "postgresql://postgres:fnAJaKFQNKsqtajLwUepDElKMnQpTBDo@crossover.proxy.rlwy.net:19099/railway"
 )
 
 # For Render PostgreSQL compatibility
