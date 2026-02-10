@@ -2,14 +2,16 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Render will provide DATABASE_URL environment variable
+# Get DATABASE_URL from environment
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql://postgres:IvWlqhpTQZhJKrhzhFWeFaxKtcbaTchO@centerbeam.proxy.rlwy.net:33844/railway"
 )
 
-# For Render PostgreSQL compatibility
-if DATABASE_URL and DATABASE_URL.startswith("postgresql://"):
+# For PostgreSQL compatibility
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+elif DATABASE_URL and DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
 
 engine = create_engine(
