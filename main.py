@@ -8,27 +8,14 @@ import models, schemas, crud
 
 app = FastAPI()
 
-# Create tables on startup
-@app.on_event("startup")
-def startup_event():
-    try:
-        models.Base.metadata.create_all(bind=engine)
-        print("Database tables created successfully")
-    except Exception as e:
-        print(f"Warning: Could not create tables on startup: {e}")
-
 @app.get("/")
 def root():
     return {"message": "HRMS API is running"}
 
-# Allow both localhost and deployed frontend URL
-allowed_origins = [
-    "*"
-]
-
+# Allow all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
