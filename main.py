@@ -13,14 +13,17 @@ app = FastAPI()
 def startup_event():
     try:
         models.Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
     except Exception as e:
         print(f"Warning: Could not create tables on startup: {e}")
 
+@app.get("/")
+def root():
+    return {"message": "HRMS API is running"}
+
 # Allow both localhost and deployed frontend URL
 allowed_origins = [
-    "http://localhost:4200",
-    "https://ehrmsui.onrender.com",
-    os.getenv("FRONTEND_URL", "http://localhost:4200")
+    "*"
 ]
 
 app.add_middleware(
